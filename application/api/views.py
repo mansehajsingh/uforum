@@ -8,5 +8,5 @@ from . import constants
 # Create your views here.
 
 @api_view(["GET"])
-def index(request, format="json"):
-    return Response(constants.api_routes, status.HTTP_200_OK)
+def index(request, format=constants.DEFAULT_REQUEST_FORMAT):
+    return Response(constants.API_ROUTES, status.HTTP_200_OK)
