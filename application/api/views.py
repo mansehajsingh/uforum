@@ -1,8 +1,8 @@
-from os import stat
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from .auth import create_session, delete_session, is_valid_login, require_auth, lookup_session
 
 from .models import *
  
@@ -39,4 +39,19 @@ def create_user(request, format=constants.DEFAULT_REQUEST_FORMAT):
             return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY) # 422 for invalid input that is not malformed syntactically
 
     except KeyError: # if the user data did not possess the necessary keys
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def login(request, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if "username" in body and "password" in body:
+        if is_valid_login(body["username"], body["password"]) == True:
+            session_details = create_session(body["username"])
+            return Response(session_details, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED) # username and password details invalid
+
+    else: # if the user data did not possess the necessary keys
         return Response(status=status.HTTP_400_BAD_REQUEST)
