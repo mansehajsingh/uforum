@@ -55,3 +55,18 @@ def login(request, format=constants.DEFAULT_REQUEST_FORMAT):
 
     else: # if the user data did not possess the necessary keys
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def logout(request, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if (
+        "session" in body and 
+        "username" in body["session"] and
+        "session_id" in body["session"]
+    ):
+        delete_session(username=body["session"]["username"])
+        return Response(status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST) # if the required fields were not contained

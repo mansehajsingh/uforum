@@ -13,6 +13,21 @@ API_ROUTES = {
         "methods": ["POST"],
         "requires_auth": False,
         "body_fields": ["username", "password", "full_name"]
+    },
+
+    "/api/login": {
+        "description": "Creates a new session instance and returns session details to be stored in a cookie.",
+        "methods": ["POST"],
+        "requires_auth": False,
+        "body_fields": ["username", "password"]
+    },
+
+    "/api/logout": {
+        "description": "Deletes session record inside of the database.",
+        "methods": ["POST"],
+        "requires_auth": False,
+        "body_fields": ["username", "password", "full_name"]
     }
+
 }
 

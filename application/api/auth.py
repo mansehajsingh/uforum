@@ -1,12 +1,13 @@
 from rest_framework.response import Response
 from rest_framework import status
+from django.utils import timezone
 
 from functools import wraps
 import uuid
 from .models import *
 from .utils import compare_password, parse_json, string_to_date
 from .serializers import SessionSerializer, UserSerializer
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 # decorator which authenticates the current user session
 def require_auth(f):
@@ -50,7 +51,7 @@ def lookup_session(username: str, session_id: str) -> bool:
             if (
                 session["username"] == username and 
                 session["session_id"] == session_id and 
-                datetime.now() < string_to_date(session["expiry_date"]) # if it is not expired
+                timezone.now() < string_to_date(session["expiry_date"]) # if it is not expired
             ):
                 return True
 
@@ -65,7 +66,7 @@ def create_session(username: str) -> dict:
         "session": {
                         "username": username,
                         "session_id": uuid.uuid4().hex,
-                        "expiry_date": (datetime.now() + timedelta(days=15))
+                        "expiry_date": (timezone.now() + timedelta(days=15))
         }
     }
 
