@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Custom imports
 from dotenv import dotenv_values, find_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'api',
+    'client',
+
     'rest_framework',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +137,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+WEBPACK_LOADER = {
+  'DEFAULT': {
+    'BUNDLE_DIR_NAME': 'client/',
+    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json')
+  }
+}
