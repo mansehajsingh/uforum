@@ -1,0 +1,23 @@
+$accent: #16bac5;
+$dark: #161618;
+
+body {
+    background-color: #F3F5F6;
+    padding: 0;
+    margin: 0;
+}
+
+@mixin button_style {
+    border: 2px solid $accent;
+    border-radius: 10px;
+    color: $accent;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+        color: $dark;
+        background-color: $accent;
+    }
+
+}

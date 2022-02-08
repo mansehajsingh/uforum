@@ -130,3 +130,5 @@ dmypy.json
 
 # node modules for client setup
 node_modules/
+
+client/static/client/
