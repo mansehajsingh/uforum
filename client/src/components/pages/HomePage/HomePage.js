@@ -2,18 +2,28 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import styles from "./HomePage.module";
 import axios from "axios";
-import { Snackbar, SnackbarContent } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import { Slide } from "@mui/material";
 import "./HomePage.module.scss"
+import Cookies from "universal-cookie/es6";
+import { useNavigate } from "react-router-dom";
 
-const HomePage = () => {
+const cookies = new Cookies();
+
+const HomePage = (props) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [usernameError, setUsernameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
-    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false); // true if snackbar is open, false otherwise
+
+    const navigate = useNavigate();
+
+    useEffect(() => { // checks to see if a cookie exists already on page load
+        cookies.get("uforum_session") ? navigate("/communities") : null;
+    }, []);
 
     const validateInput = () => {
         username ? setUsernameError("") : setUsernameError("Please enter a username");
@@ -22,19 +32,32 @@ const HomePage = () => {
         return username && password;
     }
 
-    const sendCredentials = () => {
+    const sendCredentials = () => { // sends login credentials to the server
         const requestData = {
             username: username,
             password: password
         }
 
-        let response = axios.post("/api/login", requestData)
+        axios.post("/api/login", requestData)
             .then(res => {
+                createCookie({
+                    username: res.data.session.username,
+                    session_id: res.data.session.session_id
+                }, new Date(res.data.session.expiry_date));
                 
+                navigate('/communities');
             })
             .catch(err => {
                 setIsSnackBarOpen(true);
+                setPassword("");
             });
+    }
+
+    const createCookie = (data, expiry_date) => { // creates stringified cookie with the required data
+        cookies.set("uforum_session", JSON.stringify(data), {
+            path: "/",
+            expires: expiry_date
+        });
     }
 
     return (
