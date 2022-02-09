@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import styles from "./HomePage.module";
 import axios from "axios";
+import { Snackbar, SnackbarContent } from "@mui/material";
+import { Slide } from "@mui/material";
+import "./HomePage.module.scss"
 
 const HomePage = () => {
 
@@ -9,6 +12,8 @@ const HomePage = () => {
     const [password, setPassword] = useState("");
     const [usernameError, setUsernameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
 
     const validateInput = () => {
         username ? setUsernameError("") : setUsernameError("Please enter a username");
@@ -28,10 +33,10 @@ const HomePage = () => {
                 
             })
             .catch(err => {
-                
+                setIsSnackBarOpen(true);
             });
     }
- 
+
     return (
         <div className={styles.content}>
             <form className={styles.login_form}>
@@ -41,6 +46,7 @@ const HomePage = () => {
                     placeholder="Username"
                     value={username}
                     onInput={e => setUsername(e.target.value)}
+                    spellCheck="false"
                 />
                 <p className={styles.input_error}>{usernameError}</p>
                 <input 
@@ -60,6 +66,18 @@ const HomePage = () => {
                     Login
                 </button>
             </form>
+            <Snackbar
+                open={isSnackBarOpen}
+                message="Invalid credentials."
+                autoHideDuration={5000}
+                onClose={() => setIsSnackBarOpen(false)}
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center"
+                }}
+                TransitionComponent={Slide}
+                ContentProps={{ className: styles.error_snackbar }}
+            />
         </div>
     );
 

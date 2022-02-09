@@ -68,7 +68,7 @@
 
 .submit_button {
     @include App.button_style();
-    padding: 10px 30px 10px 30px;
+    padding: 15px 35px 15px 35px;
     font-size: 18px;
     background-color: App.$dark;
 }
@@ -90,4 +90,9 @@
         color: App.$accent;
     }
 
+}
+
+.error_snackbar {
+    background-color: #d32f2f;
+    color: #ffffff;
 }
