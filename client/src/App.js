@@ -4,17 +4,19 @@ import {
 	Routes,
 	Route
 } from 'react-router-dom';
-import styles from "./App.module";
 
 // component imports
 import HomePage from "./components/pages/HomePage/HomePage";
+import SignUpPage from "./components/pages/SignUpPage/SignUpPage";
 
 const App = () => {
 	return (
 		<div className="App">
-			<Router>
+			<Router basename='/'>
 				<Routes>
-					<Route path="/" element={<HomePage />}></Route>
+					<Route exact path="/" element={<HomePage />}>
+						<Route path="/sign-up" element={<SignUpPage />} />
+					</Route>
 				</Routes>
 			</Router>
 		</div>
