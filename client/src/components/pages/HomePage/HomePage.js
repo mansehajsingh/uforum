@@ -17,8 +17,11 @@ const HomePage = (props) => {
     const [usernameError, setUsernameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
 
-    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false); // true if snackbar is open, false otherwise
+    const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
 
+    const [loginButtonText, setLoginButtonText] = useState("Login");
+    const [disableLogin, setDisableLogin] = useState(false);
+ 
     const navigate = useNavigate();
 
     useEffect(() => { // checks to see if a cookie exists already on page load
@@ -50,6 +53,8 @@ const HomePage = (props) => {
             .catch(err => {
                 setIsSnackBarOpen(true);
                 setPassword("");
+                setLoginButtonText("Login");
+                setDisableLogin(false);
             });
     }
 
@@ -58,6 +63,12 @@ const HomePage = (props) => {
             path: "/",
             expires: expiry_date
         });
+    }
+
+    const handleLoginButtonClick = () => {
+        setDisableLogin(true);
+        setLoginButtonText("Please Wait")
+        validateInput() ? sendCredentials() : null
     }
 
     return (
@@ -84,9 +95,10 @@ const HomePage = (props) => {
                 <button 
                     className={styles.submit_button} 
                     type="button"
-                    onClick={() => validateInput() ? sendCredentials() : null}
+                    onClick={handleLoginButtonClick}
+                    disabled={disableLogin}
                 >
-                    Login
+                    {loginButtonText}
                 </button>
             </form>
             <Snackbar

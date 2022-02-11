@@ -48,6 +48,10 @@
         border-bottom: 2px solid App.$accent;
     }
 
+    &::placeholder {
+        opacity: 0.4;
+    }
+
 }
 
 .username_input {
