@@ -14,9 +14,8 @@ const App = () => {
 		<div className="App">
 			<Router basename='/'>
 				<Routes>
-					<Route exact path="/" element={<HomePage />}>
-						<Route path="/sign-up" element={<SignUpPage />} />
-					</Route>
+					<Route exact path="/" element={<HomePage />} />
+					<Route path="/sign-up" element={<SignUpPage />} />
 				</Routes>
 			</Router>
 		</div>

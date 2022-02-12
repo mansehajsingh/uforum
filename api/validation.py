@@ -18,8 +18,8 @@ class UserValidator:
         return True
 
     def __full_name_is_valid(self):
-        if len(self.full_name) > 100:
-            return False # very very unlikely of a full name over 100 characters
+        if len(self.full_name) > 30:
+            return False 
         return True
 
     def is_valid(self):

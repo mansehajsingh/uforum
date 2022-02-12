@@ -29,8 +29,8 @@ const HomePage = (props) => {
     }, []);
 
     const validateInput = () => {
-        username ? setUsernameError("") : setUsernameError("Please enter a username");
-        password ? setPasswordError("") : setPasswordError("Please enter a password");
+        username ? setUsernameError("") : setUsernameError("Please enter a username.");
+        password ? setPasswordError("") : setPasswordError("Please enter a password.");
 
         return username && password;
     }
@@ -67,8 +67,8 @@ const HomePage = (props) => {
 
     const handleLoginButtonClick = () => {
         setDisableLogin(true);
-        setLoginButtonText("Please Wait")
-        validateInput() ? sendCredentials() : null
+        setLoginButtonText("Please Wait");
+        validateInput() ? sendCredentials() : setLoginButtonText("Login");
     }
 
     return (
