@@ -25,4 +25,5 @@ urlpatterns = [
     path('login', views.login, name="login"),
     path('logout', views.logout, name="logout"),
     path('create-community', views.create_community, name="create-community"),
+    path('get-communities', views.get_communities, name="get-communities"),
 ]

@@ -1,3 +1,4 @@
+from os import truncate
 from rest_framework import serializers
 
 from .models import *
@@ -15,4 +16,11 @@ class SessionSerializer(serializers.ModelSerializer):
 class CommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Community
+        fields = "__all__"
+
+class CommunityOverviewSerializer(serializers.ModelSerializer):
+    community = CommunitySerializer(read_only=True)
+
+    class Meta:
+        model = CommunityJoin
         fields = "__all__"

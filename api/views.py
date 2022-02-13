@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Prefetch
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -6,6 +7,7 @@ from .auth import create_session, delete_session, is_valid_login, require_auth, 
 import uuid
 
 from .models import *
+from .serializers import *
  
 from . import constants
 from .validation import *
@@ -16,6 +18,7 @@ from .utils import parse_json, hash_password
 @api_view(["GET"])
 def base(request, format=constants.DEFAULT_REQUEST_FORMAT):
     return Response(constants.API_ROUTES, status.HTTP_200_OK)
+
 
 @api_view(["POST"])
 def create_user(request, format=constants.DEFAULT_REQUEST_FORMAT):
@@ -109,3 +112,16 @@ def create_community(request, format=constants.DEFAULT_REQUEST_FORMAT):
         return Response(status=status.HTTP_200_OK)
         
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+@require_auth
+def get_communities(request, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    query_set = CommunityJoin.objects.filter(username=body["session"]["username"]) \
+                .prefetch_related(Prefetch("community_id", to_attr="community"))
+
+    response = CommunityOverviewSerializer(instance=query_set, many=True).data
+
+    return Response(response, status=status.HTTP_200_OK)
