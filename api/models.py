@@ -11,3 +11,9 @@ class Session(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, null=False)
     session_id = models.CharField(max_length=32, unique=False, null=False)
     expiry_date = models.DateTimeField(null=False)
+
+class Community(models.Model):
+    community_id = models.CharField(primary_key=True, unique=True, max_length=32, null=False)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, null=False)
+    description = models.TextField(blank=True)
