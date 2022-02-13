@@ -1,3 +1,5 @@
+from enum import IntEnum
+
 DEFAULT_REQUEST_FORMAT = "json"
 
 # Dictionary of all api url endpoints, with a description, and the accepted method(s)
@@ -31,3 +33,8 @@ API_ROUTES = {
 
 }
 
+class JoinTypes(IntEnum):
+    OWNER = 1
+    CURATOR = 2
+    MEMBER = 3
+    

@@ -1,6 +1,7 @@
 import json
 import bcrypt
 from datetime import datetime
+from dateutil.parser import parse
 
 # converts a byte payload for post requests into json
 def parse_json(payload):
@@ -14,4 +15,4 @@ def compare_password(password, hashed_password):
     return bcrypt.checkpw(bytes(password, "utf-8"), bytes(hashed_password, "utf-8"))
 
 def string_to_date(date_string):
-    return datetime.strptime(date_string,"%Y-%m-%dT%H:%M:%SZ")
+    return parse(date_string)# datetime.strptime(date_string,"%Y-%m-%dT%H:%M:%S.%fZ")

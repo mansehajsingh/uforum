@@ -23,5 +23,6 @@ urlpatterns = [
     path('', views.base, name="base"),
     path('create-user', views.create_user, name="create-user"),
     path('login', views.login, name="login"),
-    path('logout', views.logout, name="logout")
+    path('logout', views.logout, name="logout"),
+    path('create-community', views.create_community, name="create-community"),
 ]

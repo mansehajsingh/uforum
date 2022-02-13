@@ -17,3 +17,8 @@ class Community(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30, null=False)
     description = models.TextField(blank=True)
+
+class CommunityJoin(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    community_id = models.ForeignKey(Community, on_delete=models.CASCADE)
+    join_type = models.IntegerField(null=False)

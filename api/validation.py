@@ -25,4 +25,22 @@ class UserValidator:
     def is_valid(self):
         return self.__username_is_valid() and self.__password_is_valid() and self.__full_name_is_valid()
 
+
+class CommunityValidator:
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
     
+    def __name_is_valid(self):
+        if len(self.name) > 30 or len(self.name) == 0:
+            return False
+        return True
+    
+    def __description_is_valid(self):
+        if len(self.description) > 140:
+            return False
+        return True
+    
+    def is_valid(self):
+        return self.__name_is_valid() and self.__description_is_valid()
