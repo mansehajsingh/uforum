@@ -1,0 +1,27 @@
+@use "../../../App.module.scss" as App;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500&display=swap');
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-family: "Oswald";
+    text-align: left;
+    font-size: max(5vw, 18pt);
+    letter-spacing: 5px;
+    margin: max(5%, 40px) 0 0.3vh 7%;
+}
+
+.subheading {
+    font-family: "Oswald";
+    text-align: left;
+    font-size: max(3vw, 13pt);
+    letter-spacing: 5px;
+    margin: 0 0 0.2vh 7%;
+}
+
+.communities_wrapper {
+    margin: 0 7%;
+}

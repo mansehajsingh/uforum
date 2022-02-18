@@ -1,0 +1,53 @@
+@use "../../App.module.scss" as App;
+
+.button_wrapper {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    border: solid 1px App.$border-gray;
+    padding: 10px 20px;
+    background-color: App.$body-color;
+    transition: filter 0.3s ease;
+
+    &:hover {
+        filter: drop-shadow(0 0 2px rgba(App.$dark, 0.4));
+    }
+
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 60%;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: flex-end;
+    width: 40%;
+}
+
+.title {
+    font-size: max(1.6vw, 12pt);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: App.$dark;
+    margin: 0 0 4px 0;
+    user-select: none;
+}
+
+.description {
+    font-size: max(1vw, 9pt);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #808080;
+    margin: 0;
+    user-select: none;
+}
+
+.id_label {
+    color: #808080;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: max(0.7vw, 6pt);
+}

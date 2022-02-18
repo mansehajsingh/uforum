@@ -8,6 +8,7 @@ import {
 // component imports
 import HomePage from "./components/pages/HomePage/HomePage";
 import SignUpPage from "./components/pages/SignUpPage/SignUpPage";
+import CommunitiesPage from "./components/pages/CommunitiesPage/CommunitiesPage";
 
 const App = () => {
 	return (
@@ -16,6 +17,7 @@ const App = () => {
 				<Routes>
 					<Route exact path="/" element={<HomePage />} />
 					<Route path="/sign-up" element={<SignUpPage />} />
+					<Route path="/communities" element={<CommunitiesPage />} />
 				</Routes>
 			</Router>
 		</div>

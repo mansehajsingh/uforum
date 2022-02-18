@@ -13,11 +13,12 @@ def require_auth(f):
 
     @wraps(f)
     def wrapper(*args, **kwargs):
+        session = None
         
         try:
             session = parse_json(args[0].body)["session"]
         except:
-            Response(status=status.HTTP_400_BAD_REQUEST) # if no session object exists in the request body
+            return Response(status=status.HTTP_400_BAD_REQUEST) # if no session object exists in the request body
         
         if "username" in session and "session_id" in session:
             if lookup_session(session["username"], session["session_id"]) == True: # session creds are valid
