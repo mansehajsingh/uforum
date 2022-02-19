@@ -4,6 +4,7 @@ import {
 	Routes,
 	Route
 } from 'react-router-dom';
+import "./App.module.scss";
 
 // component imports
 import HomePage from "./components/pages/HomePage/HomePage";

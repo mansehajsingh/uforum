@@ -7,11 +7,6 @@
     border: solid 1px App.$border-gray;
     padding: 0 20px 0 0;
     background-color: App.$body-color;
-    transition: 0.3s ease;
-
-    &:hover {
-        filter: drop-shadow(0 0 2px rgba(App.$dark, 0.4));
-    }
 
 }
 

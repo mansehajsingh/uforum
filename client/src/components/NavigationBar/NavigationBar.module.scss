@@ -1,0 +1,53 @@
+@use "../../App.module.scss" as App;
+
+.navigation_bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: App.$dark;
+    width: 100%;
+    height: 4.5vh;
+    min-height: 45px;
+    position: fixed;
+    top: 0;
+    padding: 5px 20px 5px 30px;
+}
+
+.navigation_logo {
+    width: 4vw;
+    min-width: 75px;
+    height: auto;
+    cursor: pointer;
+}
+
+.left {
+
+    display: flex;
+    flex-direction: row;
+    padding-right: 8vw;
+    margin-left: 10vw;
+    padding-top: 15px;
+
+    & > a {
+        text-decoration: none;
+        color: #FFFFFF;
+        font-size: 1rem;
+        min-height: 30px;
+        margin-right: max(5vw, 50px);
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        transition: 0.3s ease;
+
+        &:hover {
+            color: App.$accent;
+        }
+
+    }
+
+    & > img {
+        margin-right: max(5vw, 25px);
+        margin-bottom: 5px;
+        transition: 0.3s ease;
+    }
+
+}

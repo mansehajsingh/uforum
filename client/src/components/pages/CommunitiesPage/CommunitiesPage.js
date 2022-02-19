@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from "universal-cookie/es6";
 import { useNavigate } from "react-router-dom";
 import CommunityButton from "../../CommunityButton";
+import NavigationBar from "../../NavigationBar";
 
 const CommunitiesPage = (props) => {
     
@@ -53,7 +54,7 @@ const CommunitiesPage = (props) => {
 
         if (communityButtons.length == 0) {
             return (
-                <div class={styles.empty_placeholder}>
+                <div className={styles.empty_placeholder}>
                     <p>Nothing to see here.</p>
                 </div>
             );
@@ -63,31 +64,34 @@ const CommunitiesPage = (props) => {
     }
 
     return (
-        <div className={styles.content}>
-            <h1 className={styles.title}>COMMUNITIES</h1>
-            <div className={styles.buttons_wrapper}>
-                <button className={styles.add_button}>Add</button>
-                <button className={styles.create_button}>Create</button>
+        <>
+            <NavigationBar />
+            <div className={styles.content}>
+                <h1 className={styles.title}>COMMUNITIES</h1>
+                <div className={styles.buttons_wrapper}>
+                    <button className={styles.add_button}>Add</button>
+                    <button className={styles.create_button}>Create</button>
+                </div>
+                <h3 className={styles.subheading}>OWNED</h3>
+                <div 
+                className={styles.communities_wrapper}
+                >
+                    {renderCommunities(COMMUNITIES_FILTER_TYPES.OWNED)}
+                </div>
+                <h3 className={styles.subheading}>CURATED</h3>
+                <div 
+                className={styles.communities_wrapper}
+                >
+                    {renderCommunities(COMMUNITIES_FILTER_TYPES.CURATED)}
+                </div>
+                <h3 className={styles.subheading}>MEMBER OF</h3>
+                <div 
+                className={styles.communities_wrapper}
+                >
+                    {renderCommunities(COMMUNITIES_FILTER_TYPES.MEMBER)}
+                </div>
             </div>
-            <h3 className={styles.subheading}>OWNED</h3>
-            <div 
-            className={styles.communities_wrapper}
-            >
-                {renderCommunities(COMMUNITIES_FILTER_TYPES.OWNED)}
-            </div>
-            <h3 className={styles.subheading}>CURATED</h3>
-            <div 
-            className={styles.communities_wrapper}
-            >
-                {renderCommunities(COMMUNITIES_FILTER_TYPES.CURATED)}
-            </div>
-            <h3 className={styles.subheading}>MEMBER OF</h3>
-            <div 
-            className={styles.communities_wrapper}
-            >
-                {renderCommunities(COMMUNITIES_FILTER_TYPES.MEMBER)}
-            </div>
-        </div>
+        </>
     );
 
 }
