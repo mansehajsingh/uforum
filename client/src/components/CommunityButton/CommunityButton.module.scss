@@ -5,14 +5,27 @@
     flex-direction: row;
     cursor: pointer;
     border: solid 1px App.$border-gray;
-    padding: 10px 20px;
+    padding: 0 20px 0 0;
     background-color: App.$body-color;
-    transition: filter 0.3s ease;
+    transition: 0.3s ease;
 
     &:hover {
         filter: drop-shadow(0 0 2px rgba(App.$dark, 0.4));
     }
 
+}
+
+.button_accent {
+    width: 5px;
+}
+
+.button_content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    width: 95%;
 }
 
 .left {
@@ -28,6 +41,7 @@
     justify-content: right;
     align-items: flex-end;
     width: 40%;
+    padding: 15px;
 }
 
 .title {
@@ -50,4 +64,5 @@
     color: #808080;
     font-family: Consolas, "Courier New", monospace;
     font-size: max(0.7vw, 6pt);
+    user-select: none;
 }
