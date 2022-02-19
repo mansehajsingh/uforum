@@ -125,3 +125,9 @@ def get_communities(request, format=constants.DEFAULT_REQUEST_FORMAT):
     response = CommunityOverviewSerializer(instance=query_set, many=True).data
 
     return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@require_auth
+def get_community(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)

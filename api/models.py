@@ -22,3 +22,12 @@ class CommunityJoin(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     community_id = models.ForeignKey(Community, on_delete=models.CASCADE)
     join_type = models.IntegerField(null=False)
+
+class Post(models.Model):
+    post_id = models.CharField(primary_key=True, unique=True, max_length=32, null=False)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.TextField(blank=True)
+    content = models.TextField(blank=True)
+    post_type = models.IntegerField(null=False)
+    is_anonymous = models.BooleanField(default=False)

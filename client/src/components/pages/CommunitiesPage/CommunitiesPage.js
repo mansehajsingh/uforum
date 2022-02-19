@@ -26,7 +26,7 @@ const CommunitiesPage = (props) => {
 
         let sessionObj = { session: sessionValue }
  
-        axios.post("/api/get-communities", sessionObj)
+        axios.post("/api/communities", sessionObj)
             .then(response => {
                 setCommunities(response.data)
             });
