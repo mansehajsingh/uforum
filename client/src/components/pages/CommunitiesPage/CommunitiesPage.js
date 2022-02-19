@@ -26,7 +26,10 @@ const CommunitiesPage = (props) => {
         let sessionObj = { session: sessionValue }
  
         axios.post("/api/get-communities", sessionObj)
-            .then(response => {setCommunities(response.data); console.log(response.data)});
+            .then(response => {
+                setCommunities(response.data)
+            });
+            
     }, []);
 
     const renderCommunities = (filterType) => {
@@ -48,17 +51,41 @@ const CommunitiesPage = (props) => {
             );
         });
 
+        if (communityButtons.length == 0) {
+            return (
+                <div class={styles.empty_placeholder}>
+                    <p>Nothing to see here.</p>
+                </div>
+            );
+        }
+
         return communityButtons;
     }
 
     return (
         <div className={styles.content}>
             <h1 className={styles.title}>COMMUNITIES</h1>
+            <div className={styles.buttons_wrapper}>
+                <button className={styles.add_button}>Add</button>
+                <button className={styles.create_button}>Create</button>
+            </div>
             <h3 className={styles.subheading}>OWNED</h3>
             <div 
             className={styles.communities_wrapper}
             >
                 {renderCommunities(COMMUNITIES_FILTER_TYPES.OWNED)}
+            </div>
+            <h3 className={styles.subheading}>CURATED</h3>
+            <div 
+            className={styles.communities_wrapper}
+            >
+                {renderCommunities(COMMUNITIES_FILTER_TYPES.CURATED)}
+            </div>
+            <h3 className={styles.subheading}>MEMBER OF</h3>
+            <div 
+            className={styles.communities_wrapper}
+            >
+                {renderCommunities(COMMUNITIES_FILTER_TYPES.MEMBER)}
             </div>
         </div>
     );

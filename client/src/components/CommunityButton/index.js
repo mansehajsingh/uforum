@@ -8,12 +8,18 @@ import CommunityIcon from "../CommunityIcon";
 const CommunityButton = (props) => {
 
     const [accentBGColor, setAccentBGColor] = useState("#F3F5F6");
+    const navigate = useNavigate();
+
+    const goToCommunityPage = () => {
+        navigate(`/community/${props.communityID}`);
+    }
 
     return (
         <div 
             className={styles.button_wrapper}
             onMouseOver={() => setAccentBGColor("#16bac5")}
             onMouseOut={() => setAccentBGColor("#F3F5F6")}
+            onClick={goToCommunityPage}
         >
             <div 
                 className={styles.button_accent}
