@@ -131,3 +131,20 @@ def get_communities(request, format=constants.DEFAULT_REQUEST_FORMAT):
 @require_auth
 def get_community(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
     body = parse_json(request.body)
+
+    if Community.objects.filter(community_id=community_id).exists(): # confirming that the community exists
+
+        if CommunityJoin.objects.filter(
+            username=body["session"]["username"], 
+            community_id=community_id
+        ).exists(): # confirming that the user is authorized to access the community info
+            query_set = Community.objects.get(community_id=community_id)
+            response = CommunitySerializer(instance=query_set).data
+
+            return Response(response, status=status.HTTP_200_OK)
+        
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
