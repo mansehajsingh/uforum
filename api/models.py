@@ -17,6 +17,7 @@ class Community(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30, null=False)
     description = models.TextField(blank=True)
+    indices = models.IntegerField(null=False, default=0)
 
 class CommunityJoin(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,6 +28,7 @@ class Post(models.Model):
     post_id = models.CharField(primary_key=True, unique=True, max_length=32, null=False)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    index = models.IntegerField(null=False, default=-1)
     title = models.TextField(blank=True)
     content = models.TextField(blank=True)
     post_type = models.IntegerField(null=False)
