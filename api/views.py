@@ -241,3 +241,36 @@ def get_community_users(request, community_id, format=constants.DEFAULT_REQUEST_
     response = CommunityJoinSerializer(instance=query_set, many=True).data
 
     return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@require_auth
+def delete_post(request, community_id, post_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if not Post.objects.filter(post_id=post_id).exists() \
+       or Community.objects.filter(community_id=community_id).exists(): # if the post or community doesn
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if Post.objects.filter(post_id=post_id, author=body["session"]["username"]).exists(): # if the deleting user is the author
+        Post.objects.filter(post_id=post_id, author=body["session"]["username"]).delete()
+        return Response(status=status.HTTP_200_OK)
+
+    elif CommunityJoin.objects.filter(
+        community_id=community_id,
+        username=body["session"]["username"],
+        join_type=constants.JoinTypes.OWNER
+    ).exists(): # if the deleting user is an owner of the community
+        Post.objects.filter(post_id=post_id, author=body["session"]["username"]).delete()
+        return Response(status=status.HTTP_200_OK)
+
+    elif CommunityJoin.objects.filter(
+        community_id=community_id,
+        username=body["session"]["username"],
+        join_type=constants.JoinTypes.CURATED
+    ).exists(): # if the deleting user is a curator of the community
+        Post.objects.filter(post_id=post_id, author=body["session"]["username"]).delete()
+        return Response(status=status.HTTP_200_OK)
+
+    return Response(status=status.HTTP_403_FORBIDDEN)
+    
