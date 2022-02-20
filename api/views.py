@@ -148,3 +148,24 @@ def get_community(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT
 
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["POST"])
+@require_auth
+def get_posts(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if Community.objects.filter(community_id=community_id).exists(): # confirming the community exists
+        if CommunityJoin.objects.filter(username=body["session"]["username"], community_id=community_id) \
+            .exists(): # confirming that the user is authorized to access the community posts
+            
+            query_set = Post.objects.filter(community_id=community_id)
+            response = PostSerializer(instance=query_set, many=True)
+
+            return Response(response, status=status.HTTP_200_OK)
+        
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
