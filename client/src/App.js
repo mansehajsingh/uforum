@@ -10,6 +10,7 @@ import "./App.module.scss";
 import HomePage from "./components/pages/HomePage/HomePage";
 import SignUpPage from "./components/pages/SignUpPage/SignUpPage";
 import CommunitiesPage from "./components/pages/CommunitiesPage/CommunitiesPage";
+import CommunityPage from "./components/pages/CommunityPage";
 
 const App = () => {
 	return (
@@ -19,6 +20,7 @@ const App = () => {
 					<Route exact path="/" element={<HomePage />} />
 					<Route path="/sign-up" element={<SignUpPage />} />
 					<Route path="/communities" element={<CommunitiesPage />} />
+					<Route path="/communities/:community_id" element={<CommunityPage />} />
 				</Routes>
 			</Router>
 		</div>

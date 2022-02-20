@@ -11,7 +11,7 @@ const CommunityButton = (props) => {
     const navigate = useNavigate();
 
     const goToCommunityPage = () => {
-        navigate(`/community/${props.communityID}`);
+        navigate(`/communities/${props.communityID}`);
     }
 
     return (
