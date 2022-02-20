@@ -18,6 +18,11 @@ class CommunitySerializer(serializers.ModelSerializer):
         model = Community
         fields = "__all__"
 
+class CommunityJoinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommunityJoin
+        fields = "__all__"
+
 class CommunityOverviewSerializer(serializers.ModelSerializer):
     community = CommunitySerializer(read_only=True)
 
