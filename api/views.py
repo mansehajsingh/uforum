@@ -227,3 +227,17 @@ def create_post(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
 
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+@require_auth
+def get_community_users(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if not CommunityJoin.objects.filter(username=body["session"]["username"], community_id=community_id).exists():
+        return Response(status=status.HTTP_403_FORBIDDEN) # if the user is not registered to this community
+
+    query_set = CommunityJoin.objects.filter(community_id=community_id)
+    response = CommunityJoinSerializer(instance=query_set, many=True).data
+
+    return Response(response, status=status.HTTP_200_OK)
