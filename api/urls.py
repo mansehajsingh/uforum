@@ -28,4 +28,5 @@ urlpatterns = [
     path('communities', views.get_communities, name="communities"),
     path('communities/<str:community_id>', views.get_community, name="community"),
     path('communities/<str:community_id>/posts', views.get_posts, name="posts"),
+    path('communities/<str:community_id>/create-post', views.create_post, name="create-post"),
 ]

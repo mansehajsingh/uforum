@@ -67,10 +67,10 @@ class PostValidator:
         return False
     
     def __post_type_is_valid(self):
-        return type(self.post_type) == types.BooleanType
+        return type(self.post_type) == int
     
     def __is_anonymous_is_valid(self):
-        return type(self.__is_anonymous) == types.BooleanType
+        return type(self.is_anonymous) == bool
 
     def is_valid(self):
         return self.__title_is_valid() and \
