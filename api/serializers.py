@@ -24,3 +24,8 @@ class CommunityOverviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommunityJoin
         fields = ["community", "join_type"]
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = "__all__"
