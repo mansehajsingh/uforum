@@ -12,7 +12,8 @@
     width: max(20%, 250px);
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: App.$border-gray;
+    background-color: App.$body-color;
+    border: solid 1px App.$border-gray;
 
     &::-webkit-scrollbar {
         width: 5px;

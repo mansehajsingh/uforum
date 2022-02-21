@@ -15,28 +15,22 @@ const CommunityPage = (props) => {
     const [communityDescription, setCommunityDescription] = useState("");
     const [communityOwner, setCommunityOwner] = useState("");
 
+    const cookies = new Cookies();
+
+    useEffect(() => {
+        let sessionValue = cookies.get("uforum_session");
+        sessionValue ? null : navigate("/");
+
+        let sessionObj = { session: sessionValue }
+            
+    }, []);
+
     return (
         <>
             <NavigationBar />
             <div className={styles.content}>
                 <div className={styles.sidebar}>
                     <div className={styles.sidebar_content}>
-                        <PostButton 
-                            title={"This is a post title."}
-                            content={"This is the content of the post, hi hello lol."}
-                        />
-                        <PostButton 
-                            title={"This is a post title."}
-                            content={"This is the content of the post, hi hello lol."}
-                        />
-                        <PostButton 
-                            title={"This is a post title."}
-                            content={"This is the content of the post, hi hello lol."}
-                        />
-                        <PostButton 
-                            title={"This is a post title."}
-                            content={"This is the content of the post, hi hello lol."}
-                        />
                     </div>
                 </div>
             </div>
