@@ -135,7 +135,7 @@ def get_community(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT
     if Community.objects.filter(community_id=community_id).exists(): # confirming that the community exists
 
         if CommunityJoin.objects.filter(
-            username=body["session"]["username"], 
+            username=body["session"]["username"],
             community_id=community_id
         ).exists(): # confirming that the user is authorized to access the community info
             query_set = Community.objects.get(community_id=community_id)
@@ -159,7 +159,7 @@ def get_posts(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
         if CommunityJoin.objects.filter(username=body["session"]["username"], community_id=community_id) \
             .exists(): # confirming that the user is authorized to access the community posts
             
-            query_set = Post.objects.filter(community_id=community_id)
+            query_set = Post.objects.filter(community=community_id)
             response = PostSerializer(instance=query_set, many=True)
 
             return Response(response, status=status.HTTP_200_OK)
@@ -169,6 +169,21 @@ def get_posts(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
 
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["POST"])
+@require_auth
+def get_post(request, community_id, post_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+    
+    if CommunityJoin.objects.filter(username=body["session"]["username"], community_id=community_id):
+        query_set = Post.objects.filter(
+            post_id=post_id,
+            community = community_id
+        )
+        response = PostSerializer(query_set).data
+
+    return Response(response, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(["POST"])

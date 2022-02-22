@@ -33,3 +33,11 @@ class Post(models.Model):
     content = models.TextField(blank=True)
     post_type = models.IntegerField(null=False)
     is_anonymous = models.BooleanField(default=False)
+
+class PostResponse(models.Model):
+    response_id =  models.CharField(primary_key=True, unique=True, max_length=32, null=False)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    content = models.TextField(blank=True)
+    instructor_response = models.BooleanField(default=False)
+    is_being_edited = models.BooleanField(default=False)
