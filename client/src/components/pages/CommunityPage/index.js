@@ -15,15 +15,38 @@ const CommunityPage = (props) => {
     const [communityDescription, setCommunityDescription] = useState("");
     const [communityOwner, setCommunityOwner] = useState("");
 
+    const [posts, setPosts] = useState([]);
+
     const cookies = new Cookies();
 
     useEffect(() => {
         let sessionValue = cookies.get("uforum_session");
         sessionValue ? null : navigate("/");
 
-        let sessionObj = { session: sessionValue }
+        let requestObj = { session: sessionValue }
+        
+        axios.post(`/api/communities/${community_id}/posts`, requestObj)
+            .then(response => {
+                setPosts(response.data);
+            });
             
     }, []);
+
+    const fillPostButtons = () => {
+        let postButtons = posts.map(post => {
+            
+            return (
+                <PostButton
+                    title={post.title}
+                    content={post.content}
+                    key={post.community}
+                />
+            );
+
+        });
+
+        return postButtons;
+    }
 
     return (
         <>
@@ -31,6 +54,7 @@ const CommunityPage = (props) => {
             <div className={styles.content}>
                 <div className={styles.sidebar}>
                     <div className={styles.sidebar_content}>
+                        {fillPostButtons()}
                     </div>
                 </div>
             </div>

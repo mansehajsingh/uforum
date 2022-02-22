@@ -160,7 +160,7 @@ def get_posts(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
             .exists(): # confirming that the user is authorized to access the community posts
             
             query_set = Post.objects.filter(community=community_id)
-            response = PostSerializer(instance=query_set, many=True)
+            response = PostSerializer(instance=query_set, many=True).data
 
             return Response(response, status=status.HTTP_200_OK)
         
