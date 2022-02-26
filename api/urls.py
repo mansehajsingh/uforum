@@ -32,5 +32,6 @@ urlpatterns = [
     path('communities/<str:community_id>/posts/<str:post_id>', views.get_post, name="post"),
     path('communities/<str:community_id>/posts/<str:post_id>/delete', views.delete_post, name="delete-post"),
     path('communities/<str:community_id>/posts/<str:post_id>/responses', views.get_post_responses, name="post-responses"),
+    path('communities/<str:community_id>/posts/<str:post_id>/thread', views.get_thread, name="post-thread"),
     path('communities/<str:community_id>/create-post', views.create_post, name="create-post"),
 ]
