@@ -7,6 +7,7 @@ import { Slide } from "@mui/material";
 import "./SignUpPage.module.scss"
 import Cookies from "universal-cookie/es6";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../../utils/actions";
 
 const cookies = new Cookies();
 
@@ -49,13 +50,7 @@ const SignUpPage = (props) => {
 
     
     const sendCredentials = () => { // sends sign up credentials to the server
-        const requestData = {
-            username: username,
-            full_name: fullName,
-            password: password
-        }
-
-        axios.post("/api/create-user", requestData)
+        createUser(username, fullName, password)
             .then(response => {
                 navigate("/");
             })

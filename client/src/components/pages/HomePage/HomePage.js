@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import styles from "./HomePage.module";
-import axios from "axios";
 import { Snackbar } from "@mui/material";
 import { Slide } from "@mui/material";
 import "./HomePage.module.scss"
 import Cookies from "universal-cookie/es6";
 import { useNavigate } from "react-router-dom";
+import { sendLogin } from "../../../utils/actions";
 
 const cookies = new Cookies();
 
@@ -36,12 +36,7 @@ const HomePage = (props) => {
     }
 
     const sendCredentials = () => { // sends login credentials to the server
-        const requestData = {
-            username: username,
-            password: password
-        }
-
-        axios.post("/api/login", requestData)
+        sendLogin(username, password)
             .then(res => {
                 createCookie({
                     username: res.data.session.username,

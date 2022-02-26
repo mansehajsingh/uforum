@@ -6,6 +6,7 @@ import Cookies from "universal-cookie/es6";
 import { useNavigate } from "react-router-dom";
 import CommunityButton from "../../CommunityButton";
 import NavigationBar from "../../NavigationBar";
+import { fetchUserCommunities } from "../../../utils/actions";
 
 const CommunitiesPage = (props) => {
     
@@ -26,7 +27,7 @@ const CommunitiesPage = (props) => {
 
         let sessionObj = { session: sessionValue }
  
-        axios.post("/api/communities", sessionObj)
+        fetchUserCommunities(sessionObj)
             .then(response => {
                 setCommunities(response.data)
             });
