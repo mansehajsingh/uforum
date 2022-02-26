@@ -288,4 +288,17 @@ def delete_post(request, community_id, post_id, format=constants.DEFAULT_REQUEST
         return Response(status=status.HTTP_200_OK)
 
     return Response(status=status.HTTP_403_FORBIDDEN)
-    
+
+
+@api_view(["POST"])
+@require_auth
+def get_post_responses(request, community_id, post_id, format=constants.DEFAULT_REQUEST_FORMAT):
+    body = parse_json(request.body)
+
+    if not CommunityJoin.objects.filter(username=body["session"]["username"], community_id=community_id).exists():
+        return Response(statys=status.HTTP_403_FORBIDDEN)
+
+    query_set = PostResponse.objects.filter(community=community_id, post=post_id)
+    response = PostResponseSerializer(query_set, many=True).data
+
+    return Response(response, status=status.HTTP_200_OK)

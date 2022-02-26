@@ -39,5 +39,5 @@ class PostResponse(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     content = models.TextField(blank=True)
-    instructor_response = models.BooleanField(default=False)
+    leader_response = models.BooleanField(default=False)
     is_being_edited = models.BooleanField(default=False)
