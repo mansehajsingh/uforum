@@ -202,13 +202,11 @@ def create_post(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
 
     if "title" in body and \
        "content" in body and \
-       "post_type" in body and \
        "is_anonymous" in body:
 
         if not PostValidator(
            body["title"], 
-           body["content"], 
-           body["post_type"],
+           body["content"],
            body["is_anonymous"]
         ).is_valid():
             return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY) # custom validation scheme
@@ -232,7 +230,6 @@ def create_post(request, community_id, format=constants.DEFAULT_REQUEST_FORMAT):
             index=index,
             title=body["title"],
             content=body["content"],
-            post_type=body["post_type"],
             is_anonymous=body["is_anonymous"]
         )
 

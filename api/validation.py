@@ -50,10 +50,9 @@ class CommunityValidator:
 
 class PostValidator:
 
-    def __init__(self, title, content, post_type, is_anonymous):
+    def __init__(self, title, content, is_anonymous):
         self.title = title
         self.content = content
-        self.post_type = post_type
         self.is_anonymous = is_anonymous
     
     def __title_is_valid(self):
@@ -66,14 +65,10 @@ class PostValidator:
             return True
         return False
     
-    def __post_type_is_valid(self):
-        return type(self.post_type) == int and (self.post_type == 1 or self.post_type == 2)
-    
     def __is_anonymous_is_valid(self):
         return type(self.is_anonymous) == bool
 
     def is_valid(self):
         return self.__title_is_valid() and \
                self.__content_is_valid() and \
-               self.__post_type_is_valid() and \
                self.__is_anonymous_is_valid()

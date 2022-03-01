@@ -31,7 +31,6 @@ class Post(models.Model):
     index = models.IntegerField(null=False, default=-1)
     title = models.TextField(blank=True)
     content = models.TextField(blank=True)
-    post_type = models.IntegerField(null=False)
 
 class PostResponse(models.Model):
     response_id =  models.CharField(primary_key=True, unique=True, max_length=32, null=False)
@@ -39,4 +38,3 @@ class PostResponse(models.Model):
     community = models.ForeignKey(Community, on_delete=models.CASCADE)
     content = models.TextField(blank=True)
     leader_response = models.BooleanField(default=False)
-    is_being_edited = models.BooleanField(default=False)
